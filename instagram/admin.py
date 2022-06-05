@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-from instagram.models import Tag
+from instagram.models import Following, Post, Profile, Tag
 
 # Register your models here.
 admin.site.register(Tag)
+admin.site.register(Post)
+admin.site.register(Profile)
+admin.site.register(Following)
