@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'instagram',
     'bootstrap4',
+   
 ]
 
 MIDDLEWARE = [
@@ -126,10 +127,41 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
+CRISPY_TEMPLATES_PACK='boostrap4'
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# configuring the location for media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+cloudinary.config(
+cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
+api_key=os.getenv('CLOUDINARY_API_KEY'),
+api_secret=os.getenv('CLOUDINARY_API_SECRET'),
+secure = True
+
+)
+# django_heroku.settings(locals())
+
+
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT= os.getenv('587')
+EMAIL_USE_TLS= True
+EMAIL_HOST_USER= os.getenv('pcmaunda@gmai.com')
+EMAIL_HOST_PASSWORD= os.getenv('ennzlwkaawdkohbi')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

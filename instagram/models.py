@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import CharField
@@ -20,8 +21,11 @@ class Tag(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(blank=True,upload_to = 'images/')
+    image = models.ImageField('Image file',upload_to = 'blogs/images/', null=True)
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
     bio = models.CharField(max_length = 255)
+    # date_joined = models.DateTimeField(default=datetime.timezone.now)
 
     def __str__(self):
         return self.user
