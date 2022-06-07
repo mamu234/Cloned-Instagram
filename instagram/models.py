@@ -1,7 +1,7 @@
-
 from django.db import models
 from django.contrib.auth.models import User
-# from django.utils import now
+from django.forms import CharField
+from django.utils.timezone import now
 # Create your models here.
 
 class Post(models.Model):
@@ -14,6 +14,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+class Tag(models.Model):
+    name=models.CharField(max_length=300, blank=True)
+    description=models.TextField(blank=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,7 +32,7 @@ class Comment(models.Model):
     comment = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     parent=comment=models.ForeignKey('self',on_delete=models.CASCADE)
-    # datatime=models.DateTimeField(default=now)
+    datatime=models.DateTimeField(default=now)
 
     def __str__(self):
         return self.post
@@ -44,3 +47,4 @@ class Following(models.Model):
 
     def __str__(self):
         return self.username
+
