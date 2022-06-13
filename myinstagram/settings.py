@@ -12,21 +12,16 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv  import load_dotenv
-import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-#configurign dotenv
-env_path=Path('.')/'.env'
-load_dotenv(dotenv_path=env_path)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-stz%ytf6u()2y&vy=%z-qkhdlxi*tr$623bwoo-76vje5m%wuk'
+SECRET_KEY = 'django-insecure-5j)s_m=v3w7oreuzn4-^az8-*-=)%7!+vgylmgckx9&b*a(8=j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'instagram',
-    'bootstrap4',
-   
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -84,12 +78,8 @@ WSGI_APPLICATION = 'myinstagram.wsgi.application'
 
 DATABASES = {
     'default': {
-         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME': 'instagram',
-         'USER': 'carolyne',
-         'PASSWORD': '123',
-         'HOST': 'localhost',
-         'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -118,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa/Nairobi'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -127,41 +117,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-CRISPY_TEMPLATES_PACK='boostrap4'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-# configuring the location for media
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-cloudinary.config(
-cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
-api_key=os.getenv('CLOUDINARY_API_KEY'),
-api_secret=os.getenv('CLOUDINARY_API_SECRET'),
-secure = True
-
-)
-# django_heroku.settings(locals())
-
-
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT= os.getenv('587')
-EMAIL_USE_TLS= True
-EMAIL_HOST_USER= os.getenv('pcmaunda@gmai.com')
-EMAIL_HOST_PASSWORD= os.getenv('ennzlwkaawdkohbi')
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

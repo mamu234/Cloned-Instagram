@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+<h1>Blogs</h1>
+
+<div class="container">
+    {% for blog in blogs %}
+
+    <h2>{{ blog.title }}</h2>
+    <img src="https://res.cloudinary.com/pcmaunda@gmail.com/image/upload/v1/{{ blog.image }}" alt="{{ blog.title }}">
+    <p> {{ blog.content }}</p>
+    <p> Blog Author - {{ blog.author }}</p>
+    <p> Date Created - {{ blog.dateTime }}</p>
+    {% endfor%}
+</div>
