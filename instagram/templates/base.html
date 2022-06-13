@@ -12,17 +12,31 @@
     <body>
         {% block content %}
 
-        <h2>This is my  my post</h2>
-
-        <div class="col-md-8">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tag }}">
-                    {{ message }}
-                    </div>
-                {% endfor%}
-            {% endif %}
+        <div class="content-section">
+            <!-- Sign up form -->
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group"> 
+                    <legend class="border-bottom mb-4">Join us today</legend>
+                                   </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Sign up</button>
+                </div>
+            </form>
+    
+            <!-- Sign in form -->
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Already have an account? <a class="ml-2" href="#">Sign in</a>
+                </small>
+            </div>
         </div>
         {% endblock %}
+            <h2>You have been logged out</h2>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    <a href="{% url 'login' %}">Log in again</a>
+                </small>
+            </div>
     </body>
 </html>
