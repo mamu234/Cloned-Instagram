@@ -1,39 +1,24 @@
-{%extends "registration/base.html"%} {% load bootstrap3 %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="container-fluid" style="background-color:rgb(0,0,0,0.9);">
-        <div class="row" style="margin-left:35%;">
-                <div class="col-md-1 col-sm-1" style="margin-top:21%;">
-                    <i id="title" class="fab fa-instagram" style="font-size:40px;"></i>
-                </div>
-                <div class="col-md-8 col-sm-1" style="margin-top:20%;">
-                    <h4 id="title" style="font-family: 'Pacifico', cursive;font-size:40px;">InstagramNight</h4>
-                </div>
+    
+<div class="content-section">
+        <!-- Sign up form -->
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group"> 
+                <legend class="border-bottom mb-4">Join us today</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign up</button>
             </div>
-    <div class="row">
-        <!-- Empty div -->
-        <div class="col-md-4 col-sm-4">
-        </div>
-        <div class="col-md-4">
-            {% if form.errors %}
-            <p> Some Information Might be Incorrect </p>
-            {% endif %}
-            <div id="register" style="z-index:3;">
-                <form action="/accounts/register/" method="post">
-                    {% csrf_token %}
-                    {% bootstrap_form form layout='inline' %}
-                    <div class="form-group" style="margin-left:40%;">
-                        <input type="submit" class="btn-lg btn-outline-info" value="Sign Up">
-                    </div>
-
-                    <input type="hidden" name="next" value="{{next}}">
-
-                </form>
-
-            </div>
-            <!-- empty div -->
-            <div class="col-md-4" style="margin-top:60%;"></div>
+        </form>
+        <!-- Sign in form -->
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign in</a> <!-- Add login link -->
+            </small>
         </div>
     </div>
-</div>
-
-{% endblock %}
+{% endblock content %}

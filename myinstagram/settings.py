@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'instagram',
-    'crispy_forms'
+    'crispy_forms',
+    'bootstrap4'
     
 ]
 
