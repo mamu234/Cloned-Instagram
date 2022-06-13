@@ -1,4 +1,5 @@
 
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,30 +14,20 @@
         {% block content %}
 
         <div class="content-section">
-            <!-- Sign up form -->
-            <form method="POST">
+            <form action="" method="POST">
                 {% csrf_token %}
-                <fieldset class="form-group"> 
-                    <legend class="border-bottom mb-4">Join us today</legend>
-                                   </fieldset>
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 h1-custom">Instagram | Sign up</legend>
+                    {{ form|crispy }}
+                </fieldset>
                 <div class="form-group">
                     <button class="btn btn-outline-info" type="submit">Sign up</button>
                 </div>
             </form>
-    
-            <!-- Sign in form -->
             <div class="border-top pt-3">
-                <small class="text-muted">
-                    Already have an account? <a class="ml-2" href="#">Sign in</a>
-                </small>
+                <small class="text-muted">Already Have An Account?<a href="{% url 'login' %}" class="ml-2">Sign in</a></small>
             </div>
         </div>
         {% endblock %}
-            <h2>You have been logged out</h2>
-            <div class="border-top pt-3">
-                <small class="text-muted">
-                    <a href="{% url 'login' %}">Log in again</a>
-                </small>
-            </div>
     </body>
 </html>
