@@ -1,13 +1,14 @@
 {% extends "base.html" %}
-<h1>Blogs</h1>
+<h1>Posts</h1>
 
 <div class="container">
-    {% for blog in blogs %}
+    {% for post in posts %}
 
-    <h2>{{ blog.title }}</h2>
-    <img src="https://res.cloudinary.com/pcmaunda@gmail.com/image/upload/v1/{{ blog.image }}" alt="{{ blog.title }}">
-    <p> {{ blog.content }}</p>
-    <p> Blog Author - {{ blog.author }}</p>
-    <p> Date Created - {{ blog.dateTime }}</p>
+    <h2>{{ post.title }}</h2>
+    <img src="https://res.cloudinary.com/pcmaunda@gmail.com/image/upload/v1/{{ post.image }}" alt="{{ .title }}">
+    <p> {{ post.content }}</p>
+    <p> Post Author - {{ post.author }}</p>
+    <p> Date Created - {{ post.dateTime }}</p>
     {% endfor%}
 </div>
+

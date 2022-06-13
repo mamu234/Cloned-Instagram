@@ -1,5 +1,5 @@
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
@@ -18,19 +18,19 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     date = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE) # If a user created the post is deleted, posts are deleted as well.ß
+    author = models.ForeignKey(User, on_delete=models.CASCADE) 
 
-    # __str__() method returns how the Post is printed
+    
     def __str__(self):
         return self.title
 
 
-# class Tag(models.Model):    
-#     name =models.CharField(max_length=100,blank=True)
-#     description = models.TextField(blank=True)
+class Tag(models.Model):    
+  name =models.CharField(max_length=100,blank=True)
+  description = models.TextField(blank=True)
 
-#     def __str__(self):
-#         return f'{self.name} Tag'
+  def __str__(self):
+    return f'{self.name} Tag'
 
 # # class Post(models.Model):
 # #     title = models.CharField(max_length=300)
@@ -40,49 +40,50 @@ class Post(models.Model):
 # #     dateTime = models.DateTimeField(auto_now_add=True)
 # #     slug = models.SlugField(max_length=100)
 # #     tags = models.ManyToManyField(Tag)
-# class Post(models.Model):
-#     title = models.CharField(max_length=100)
-#     content = models.TextField()
-#     date = models.DateTimeField(default=timezone.now)
-#     author = models.ForeignKey(User, on_delete=models.CASCADE) 
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE) 
 
    
-#     def __str__(self):
-#         return self.title
+    def __str__(self):
+        return self.title
 
 
-#     def __str__(self):
-#         return f'{self.title} BlogPost'
+class Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    image = models.ImageField('Image file', upload_to='blogs/profile',null=True)
+    first_name = models.CharField(max_length=30, null=True)
+    last_name = models.CharField(max_length=30, null=True)
+    bio = models.TextField(max_length=255, null=True)
+    date_joined = models.DateTimeField(default=timezone.now)
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User,on_delete=models.CASCADE)
-#     image = models.ImageField('Image file', upload_to='blogs/profile',null=True)
-#     first_name = models.CharField(max_length=30, null=True)
-#     last_name = models.CharField(max_length=30, null=True)
-#     bio = models.TextField(max_length=255, null=True)
-#     date_joined = models.DateTimeField(default=timezone.now)
-
-#     @receiver(post_save, sender=User)
-#     def create_profile(sender, instance, created, **kwargs):
-#         if created:
-#             Profile.objects.create(user=instance)
+    @receiver(post_save, sender=User)
+    def create_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
     
-#     @receiver(post_save, sender=User)
-#     def save_profile(sender, instance, **kwargs):
-#         instance.profile.save()
+    @receiver(post_save, sender=User)
+    def save_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+class photos(models.Model):
+    # title field
+    title = models.CharField(max_length=100)
+    #image field
+    image = CloudinaryField('image')
+
+    def __str__(self):
+        return f'{self.user} Profile'
+
+class Comment(models.Model):
+    content = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Post,on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self',on_delete=models.CASCADE)
+    dateTime = models.DateTimeField(default=timezone.now)
 
 
-
-#     def __str__(self):
-#         return f'{self.user} Profile'
-
-# class Comment(models.Model):
-#     content = models.TextField()
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     blog = models.ForeignKey(Post,on_delete=models.CASCADE)
-#     parent_comment = models.ForeignKey('self',on_delete=models.CASCADE)
-#     dateTime = models.DateTimeField(default=timezone.now)
-
-
-#     def __str__(self):
-#         return f'{self.content} Comment'
+    def __str__(self):
+        return f'{self.content} Comment'
